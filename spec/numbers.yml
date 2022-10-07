@@ -26747,43 +26747,6 @@ components:
             - Incorrect value
         LocationId:
           type: string
-    E911Address:
-      type: object
-      properties:
-        HousePrefix:
-          type: string
-        HouseNumber:
-          type: string
-        HouseSuffix:
-          type: string
-        PreDirectional:
-          type: string
-        StreetName:
-          type: string
-        StreetSuffix:
-          type: string
-        PostDirectional:
-          type: string
-        AddressLine2:
-          type: string
-        City:
-          type: string
-        StateCode:
-          type: string
-        Zip:
-          type: string
-        PlusFour:
-          type: string
-        County:
-          type: string
-        Country:
-          type: string
-        AddressType:
-          type: string
-        Latitude:
-          type: string
-        Longitude:
-          type: string
     LidbOrder:
       type: object
       properties:
