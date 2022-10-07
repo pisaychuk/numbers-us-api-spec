@@ -34342,6 +34342,7 @@ components:
       properties:
         BiDirectionalTrunks:
           type: string
+  parameters:
     AccountIdPathParam:
       name: accountId
       description: User's account ID
