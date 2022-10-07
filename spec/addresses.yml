@@ -125,7 +125,7 @@ components:
       type: object
       properties:
         AddressesResponse:
-          $ref: '#/components/schemas/ResponseStatus'
+          $ref: 'numbers.yml#/components/schemas/ResponseStatus'
     E911Address:
       type: object
       properties:
