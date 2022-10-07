@@ -18,7 +18,105 @@ security:
 paths:
   $merge:
   - accounts.yml#/paths
-  - addresses.yml#/paths
+  /accounts/{accountId}/addresses:
+    get:
+      tags:
+        - Addresses
+      description: GET is used to retrieve all addresses.
+      operationId: GetAllAddresses
+      summary: Retrieve all addresses
+      parameters:
+        - $ref: '#/components/parameters/AccountIdPathParam'
+        - name: e911locationid
+          description: Search criterion for address by its locationid. Cannot be combined with type. Always returns E911 addresses.
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 47950147-9c58-407c-bcc4-e88743b20db5
+        - name: type
+          description: Search criterion for addresses by their type.
+          in: query
+          required: true
+          schema:
+            type: string
+          example: e911
+        - name: page
+          description: An ID of the first element in a page.  This value will indicate the first value, not the page number, of the initial entry in the page being requested.<br> It can be an id of address. The initial page is tagged with the ID `1`.
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "1"
+          example: "3"
+        - name: size
+          description: The number of items to include in a page.
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 500
+          example: 5000
+        - name: suggestions
+          description: The text to search simultaneously through e911locationIds.
+          in: query
+          required: false
+          schema:
+            type: string
+          example: name
+      responses:
+        "200":
+          description: OK - the addresses retrieval request will return a list of all addresses having specified type.
+          content:
+            application/xml:
+              examples:
+                example:
+                  value: |-
+                    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                    <AddressesResponse>
+                      <TotalCount>1</TotalCount>
+                      <Links>
+                        <first>Link=&lt;http://admin.localhost:8080/api/accounts/8000259/addresses?type=e911&amp;page=1&amp;size=500&gt;;rel="first";</first>
+                        <next>Link=&lt;http://localhost:8080/api/accounts/8000259/addresses?type=E911&amp;page=501&amp;size=500&gt;;rel="next";</next>
+                      </Links>
+                      <Addresses>
+                        <Address>
+                          <HouseNumber>207</HouseNumber>
+                          <HouseSuffix/>
+                          <PreDirectional/>
+                          <StreetName>Elmastar</StreetName>
+                          <StreetSuffix>AlternateStar</StreetSuffix>
+                          <PostDirectional/>
+                          <AddressLine2/>
+                          <City>Carpinteriaaly</City>
+                          <StateCode>NY</StateCode>
+                          <Zip>93019</Zip>
+                          <PlusFour/>
+                          <County/>
+                          <Country>United States</Country>
+                          <AddressType>E911</AddressType>
+                          <EndpointCount>2</EndpointCount>
+                          <ValidationStatus>VALID</ValidationStatus>
+                        </Address>
+                      </Addresses>
+                    </AddressesResponse>
+              schema:
+                $ref: '#/components/schemas/AddressesResponseWrapper'
+        "404":
+          description: Not Found - if the account specified does not exist or is locked or there are no addresses for specified search criteria it will result in a not found.
+          content:
+            application/xml:
+              examples:
+                example:
+                  value: |-
+                    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                    <AddressesResponse>
+                      <ResponseStatus>
+                        <Description>The resource does not exist</Description>
+                      </ResponseStatus>
+                    </AddressesResponse>
+              schema:
+                $ref: '#/components/schemas/AddressesResponseNotFound'
   /accounts/{accountId}/aeuis:
     get:
       tags:
@@ -26713,11 +26811,11 @@ components:
           items:
             $ref: '#/components/schemas/E911AlternateEndUserIdentifier'
         Address:
-          $ref: 'addresses.yml#/components/schemas/E911Address'
+          $ref: '#/components/schemas/E911Address'
         AdditionalAddresses:
           type: array
           items:
-            $ref: 'addresses.yml#/components/schemas/E911Address'
+            $ref: '#/components/schemas/E911Address'
         LocationId:
           type: string
     E911AlternateEndUserIdentifier:
@@ -26738,6 +26836,43 @@ components:
             - fr
             - Incorrect value
         LocationId:
+          type: string
+    E911Address:
+      type: object
+      properties:
+        HousePrefix:
+          type: string
+        HouseNumber:
+          type: string
+        HouseSuffix:
+          type: string
+        PreDirectional:
+          type: string
+        StreetName:
+          type: string
+        StreetSuffix:
+          type: string
+        PostDirectional:
+          type: string
+        AddressLine2:
+          type: string
+        City:
+          type: string
+        StateCode:
+          type: string
+        Zip:
+          type: string
+        PlusFour:
+          type: string
+        County:
+          type: string
+        Country:
+          type: string
+        AddressType:
+          type: string
+        Latitude:
+          type: string
+        Longitude:
           type: string
     LidbOrder:
       type: object
@@ -28058,6 +28193,32 @@ components:
           type: boolean
         SkipPortPsCheck:
           type: boolean
+    AddressesResponseWrapper:
+      type: object
+      properties:
+        AddressesResponse:
+          $ref: '#/components/schemas/AddressesResponse'
+    AddressesResponse:
+      type: object
+      properties:
+        Addresses:
+          $ref: '#/components/schemas/Addresses'
+        Links:
+          $ref: '#/components/schemas/Links'
+        TotalCount:
+          type: integer
+          format: int32
+    Addresses:
+      type: object
+      properties:
+        Address:
+          items:
+            $ref: '#/components/schemas/E911Address'
+    AddressesResponseNotFound:
+      type: object
+      properties:
+        AddressesResponse:
+          $ref: '#/components/schemas/ResponseStatus'
     ResponseStatus:
       type: object
       properties:
@@ -32551,7 +32712,7 @@ components:
             LastModifiedDate:
               type: string
             Address:
-              $ref: 'addresses.yml#/components/schemas/E911Address'
+              $ref: '#/components/schemas/E911Address'
             CallerName:
               type: string
             CustomerId:
