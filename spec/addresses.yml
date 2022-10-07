@@ -98,3 +98,31 @@ paths:
                     </AddressesResponse>
               schema:
                 $ref: '#/components/schemas/AddressesResponseNotFound'
+components:
+  schemas:
+    AddressesResponseWrapper:
+      type: object
+      properties:
+        AddressesResponse:
+          $ref: '#/components/schemas/AddressesResponse'
+    AddressesResponse:
+      type: object
+      properties:
+        Addresses:
+          $ref: '#/components/schemas/Addresses'
+        Links:
+          $ref: '#/components/schemas/Links'
+        TotalCount:
+          type: integer
+          format: int32
+    Addresses:
+      type: object
+      properties:
+        Address:
+          items:
+            $ref: '#/components/schemas/E911Address'
+    AddressesResponseNotFound:
+      type: object
+      properties:
+        AddressesResponse:
+          $ref: '#/components/schemas/ResponseStatus'
