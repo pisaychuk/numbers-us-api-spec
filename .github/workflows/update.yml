@@ -22,12 +22,12 @@ jobs:
 #      - uses: ./spec-splitter
 
       # to be replaced with using the spec splitter
-      - run: cp spec/numbers.json spec/numbers_external.json
+      - run: cp spec/numbers.yml spec/numbers_external.yml
 
       - uses: actions/upload-artifact@v3
         with:
           name: specs
-          path: spec/numbers_external.json
+          path: spec/numbers_external.yml
 
 #      - uses: actions/upload-artifact@v3
 #        with:
@@ -35,9 +35,9 @@ jobs:
 #          path: numbers_internal.json
 
       - name: Send Repository Dispatch Event
-        uses: Bandwidth/repository-dispatch-action@v2.0.0
+        uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.NUMBERS_DEVOPS_GITHUB_TOKEN }}
-          repository: api-specs
+          repository: Bandwidth/api-specs
           event-type: ${{ github.event.action == 'synchronize' && 'Numbers-Update' || 'Numbers-Open' }}
           client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "numbers-us-api-spec", "author": "${{ github.event.sender.login }}", "draftPr": ${{ github.event.pull_request.draft }}, "runId": "${{ github.run_id }}"}'
