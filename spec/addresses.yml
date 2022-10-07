@@ -111,7 +111,7 @@ components:
         Addresses:
           $ref: '#/components/schemas/Addresses'
         Links:
-          $ref: '#/components/schemas/Links'
+          $ref: 'numbers.yml#/components/schemas/Links'
         TotalCount:
           type: integer
           format: int32
