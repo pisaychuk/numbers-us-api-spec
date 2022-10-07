@@ -14,9 +14,9 @@ jobs:
     steps:
       - name: Send Closed Repository Dispatch Event
         if: ${{ github.event.pull_request.merged == false }}
-        uses: Bandwidth/repository-dispatch-action@v2.0.0
+        uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.NUMBERS_DEVOPS_GITHUB_TOKEN }}
-          repository: api-specs
+          repository: Bandwidth/api-specs
           event-type: github.event.pull_request.merged == true && 'Numbers-Merge' || 'Numbers-Close'
           client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "${{ github.repository }}"}'

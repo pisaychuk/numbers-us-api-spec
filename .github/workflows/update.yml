@@ -26,6 +26,9 @@ jobs:
       - name: Validate spec
         run: yamllint -d relaxed spec/numbers_external.yml
 
+      - name: Validate spec
+        run: yamllint -d relaxed spec/numbers_external.yml
+
       - uses: actions/upload-artifact@v3
         with:
           name: specs
