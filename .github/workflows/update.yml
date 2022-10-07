@@ -22,7 +22,7 @@ jobs:
 #      - uses: ./spec-splitter
 
       # to be replaced with using the spec splitter
-      - run: cp spec/numbers_all.yml spec/numbers_external.yml
+      - run: cp numbers_all.yml spec/numbers_external.yml
 
       - name: Validate spec
         run: yamllint -d relaxed spec/numbers_external.yml
