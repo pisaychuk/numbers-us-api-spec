@@ -24451,9 +24451,6 @@ components:
       type: http
       scheme: basic
   schemas:
-    $merge:
-      - accounts.yml#/components/schemas
-      - addresses.yml#/components/schemas
     UcTrunkingSeats:
       type: object
       properties:
@@ -34345,10 +34342,6 @@ components:
       properties:
         BiDirectionalTrunks:
           type: string
-  parameters:
-    $merge:
-      - accounts.yml#/components/parameters
-      - addresses.yml#/componets/parameters
     AccountIdPathParam:
       name: accountId
       description: User's account ID
