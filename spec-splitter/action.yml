@@ -1,0 +1,23 @@
+name: OpenAPI Spec Splitter
+description: Pre-process api specs to generate an internal and external api spec
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt-hotspot'
+        java-version: '17'
+        cache: 'maven'
+
+    - name: Build spec-splitter
+      shell: bash
+      working-directory: spec-splitter
+      run: |
+        mvn package -B
+
+    - name: Split specs
+      shell: bash
+      run: |
+        specName=${f:$(echo -n "${{ inputs.folder}}/" | wc -c)}
+        java -jar spec-splitter/target/spec-splitter-1.0-jar-with-dependencies.jar -r numbers_all.json -w numbers_external.json
+        java -jar spec-splitter/target/spec-splitter-1.0-jar-with-dependencies.jar -i -r numbers_all.json -w numbers_internal.json

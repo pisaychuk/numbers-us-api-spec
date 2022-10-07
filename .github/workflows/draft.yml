@@ -1,0 +1,19 @@
+name: Send Draft State
+
+on:
+  pull_request:
+    types: [converted_to_draft, ready_for_review]
+    branches:
+      - 'main'
+jobs:
+  send_dispatch:
+    name: Send PR Draft State
+    runs-on: ubuntu-latest
+    steps:
+        - name: Send Repository Dispatch Event
+          uses: Bandwidth/repository-dispatch-action@v2.0.0
+          with:
+            token: ${{ secrets.NUMBERS_DEVOPS_GITHUB_TOKEN }}
+            repository: api-specs
+            event-type: Numbers-Draft
+            client-payload: '{"branchName": "${{ github.head_ref }}", "draftPr": ${{ github.event.pull_request.draft }}}'
