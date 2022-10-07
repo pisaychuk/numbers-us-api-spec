@@ -7,7 +7,7 @@ paths:
       operationId: GetAccount
       summary: Retrieve account
       parameters:
-        - $ref: '#/components/parameters/AccountIdPathParam'
+        - $ref: 'numbers.yml#/components/parameters/AccountIdPathParam'
       responses:
         "200":
           description: Retrieve Account information.
@@ -58,7 +58,7 @@ paths:
                       </Account>
                     </AccountResponse>
               schema:
-                $ref: '#/components/schemas/AccountResponseWrapper'
+                $ref: 'numbers.yml#/components/schemas/AccountResponseWrapper'
 components:
   schemas:
   parameters:
