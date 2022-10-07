@@ -26721,11 +26721,11 @@ components:
           items:
             $ref: '#/components/schemas/E911AlternateEndUserIdentifier'
         Address:
-          $ref: '#/components/schemas/E911Address'
+          $ref: 'addresses.yml#/components/schemas/E911Address'
         AdditionalAddresses:
           type: array
           items:
-            $ref: '#/components/schemas/E911Address'
+            $ref: 'addresses.yml#/components/schemas/E911Address'
         LocationId:
           type: string
     E911AlternateEndUserIdentifier:
