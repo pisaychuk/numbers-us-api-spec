@@ -126,3 +126,4 @@ components:
       properties:
         AddressesResponse:
           $ref: '#/components/schemas/ResponseStatus'
+  parameters:
