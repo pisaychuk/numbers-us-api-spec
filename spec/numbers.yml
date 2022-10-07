@@ -32559,7 +32559,7 @@ components:
             LastModifiedDate:
               type: string
             Address:
-              $ref: '#/components/schemas/E911Address'
+              $ref: 'addresses.yml#/components/schemas/E911Address'
             CallerName:
               type: string
             CustomerId:
