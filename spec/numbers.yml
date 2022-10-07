@@ -17,7 +17,8 @@ security:
   - httpBasic: []
 paths:
   $merge:
-  - account.yml#/paths
+  - accounts.yml#/paths
+  - addresses.yml#/paths
   /accounts/{accountId}/aeuis:
     get:
       tags:
