@@ -25,7 +25,7 @@ jobs:
       - run: cp spec/numbers.yml spec/numbers_external.yml
 
       - name: Validate spec
-        run: yamllint spec/numbers_external.yml
+        run: yamllint -d relaxed spec/numbers_external.yml
 
       - uses: actions/upload-artifact@v3
         with:
