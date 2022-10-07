@@ -21711,7 +21711,6 @@
       "EmergencyNotificationRecipientWithTts": {
         "description": "Emergency Notification Recipient with tts.",
         "type": "object",
-        "description": "The list of child, or subtending, orders associated with a bulk port-in.  The bulk port-in will have an empty PortinList until telephone numbers are added using the /tnList endpoint.",
         "properties": {
           "Identifier": {
             "$ref": "#/components/schemas/RecipientIdentifier"
@@ -29216,7 +29215,7 @@
             }
           },
           "MessagingSettings": {
-            "$ref": "#/components/schemas/MessagingSettings"
+            "$ref": "#/components/schemas/TnDetailsMessagingSettings"
           },
           "TnOptions": {
             "$ref": "#/components/schemas/TnOptions"
@@ -29454,7 +29453,7 @@
           }
         }
       },
-      "MessagingSettings": {
+      "TnDetailsMessagingSettings": {
         "type": "object",
         "properties": {
           "SmsEnabled": {
@@ -29547,7 +29546,7 @@
             "type": "string"
           },
           "MessagingSettings": {
-            "$ref": "#/components/schemas/MessagingSettings"
+            "$ref": "#/components/schemas/TnDetailsMessagingSettings"
           },
           "Features": {
             "type": "array",
@@ -33207,19 +33206,6 @@
           }
         }
       },
-      "SiteTNsResponse": {
-        "type": "object",
-        "properties": {
-          "SiteTNs": {
-            "type": "object",
-            "properties": {
-              "TotalCount": {
-                "type": "integer"
-              }
-            }
-          }
-        }
-      },
       "ImportVoiceTnOrdersResponseList": {
         "type": "object",
         "properties": {
@@ -33968,30 +33954,6 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/Brand"
-                }
-              }
-            }
-          }
-        }
-      },
-      "SiteOrdersResponse": {
-        "type": "object",
-        "properties": {
-          "ResponseSelectWrapper": {
-            "type": "object",
-            "properties": {
-              "ListOrderIdUserIdDate": {
-                "type": "object",
-                "properties": {
-                  "TotalCount": {
-                    "type": "integer"
-                  },
-                  "OrderIdUserIdDate": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/OrderSummary"
-                    }
-                  }
                 }
               }
             }
