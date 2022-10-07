@@ -47,4 +47,4 @@ jobs:
           token: ${{ secrets.NUMBERS_DEVOPS_GITHUB_TOKEN }}
           repository: Bandwidth/api-specs
           event-type: ${{ github.event.action == 'synchronize' && 'Numbers-Update' || 'Numbers-Open' }}
-          client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "${{ github.repository }}", "author": "${{ github.event.sender.login }}", "draftPr": ${{ github.event.pull_request.draft }}, "runId": "${{ github.run_id }}"}'
+          client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "numbers-us-api-spec", "author": "${{ github.event.sender.login }}", "draftPr": ${{ github.event.pull_request.draft }}, "runId": "${{ github.run_id }}"}'
