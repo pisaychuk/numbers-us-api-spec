@@ -7,7 +7,7 @@ paths:
       operationId: GetAllAddresses
       summary: Retrieve all addresses
       parameters:
-        - $ref: '#/components/parameters/AccountIdPathParam'
+        - $ref: 'numbers.yml#/components/parameters/AccountIdPathParam'
         - name: e911locationid
           description: Search criterion for address by its locationid. Cannot be combined with type. Always returns E911 addresses.
           in: query
