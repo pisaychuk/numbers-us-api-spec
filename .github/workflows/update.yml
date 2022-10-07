@@ -22,12 +22,12 @@ jobs:
 #      - uses: ./spec-splitter
 
       # to be replaced with using the spec splitter
-      - run: cp spec/numbers.yaml spec/numbers_external.yaml
+      - run: cp spec/numbers.yml spec/numbers_external.yml
 
       - uses: actions/upload-artifact@v3
         with:
           name: specs
-          path: spec/numbers_external.yaml
+          path: spec/numbers_external.yml
 
 #      - uses: actions/upload-artifact@v3
 #        with:
