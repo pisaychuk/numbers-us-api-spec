@@ -14,15 +14,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - uses: Bandwidth/github-actions/openapi-preprocessor@BWDB-14042-oas-preprocessor
-#        with:
-#          input_file: 'spec/numbers.json'
-#          output_file: 'numbers_all.json'
-#
+      - uses: mrmeyers99/openapi-preprocessor@main
+        with:
+          input_file: 'spec/numbers.yml'
+          output_file: 'spec/numbers_all.json'
+
 #      - uses: ./spec-splitter
 
-      # to be replaced with using the spec splitter
-      - run: cp spec/numbers.yml spec/numbers_external.yml
+      - run: yq e -P spec/numbers_all.json > spec/numbers_external.yml
+
+      - name: Validate spec
+        run: yamllint -d relaxed spec/numbers_external.yml
 
       - name: Validate spec
         run: yamllint -d relaxed spec/numbers_external.yml
@@ -48,4 +50,4 @@ jobs:
           token: ${{ secrets.NUMBERS_DEVOPS_GITHUB_TOKEN }}
           repository: Bandwidth/api-specs
           event-type: ${{ github.event.action == 'synchronize' && 'Numbers-Update' || 'Numbers-Open' }}
-          client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "${{ github.repository }}", "author": "${{ github.event.sender.login }}", "draftPr": ${{ github.event.pull_request.draft }}, "runId": "${{ github.run_id }}"}'
+          client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "numbers-us-api-spec", "author": "${{ github.event.sender.login }}", "draftPr": ${{ github.event.pull_request.draft }}, "runId": "${{ github.run_id }}"}'
