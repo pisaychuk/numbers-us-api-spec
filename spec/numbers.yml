@@ -17,67 +17,8 @@ security:
   - httpBasic: []
 paths:
   $merge:
-    - porting.yml#/paths
-  /accounts/{accountId}:
-    get:
-      tags:
-        - Account
-      description: <p>The account is the root resource for many of the operations in the Bandwidth Dashboard API.</p> <p>The account is represented by an account id, which is the resource that represents a Bandwidth customer, providing a root resource for all of the customer's attributes and services.</p> <p>The API calls that are used to manage the details of a customer account, and to manage the resources that a Bandwidth customer has access to or control over, are accessed through the /accounts resource.</p> <p>This API call retrieves information about the account indicated by the Account ID.</p>
-      operationId: GetAccount
-      summary: Retrieve account
-      parameters:
-        - $ref: '#/components/parameters/AccountIdPathParam'
-      responses:
-        "200":
-          description: Retrieve Account information.
-          content:
-            application/xml:
-              examples:
-                example:
-                  description: example
-                  value: |
-                    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-                    <AccountResponse>
-                      <Account>
-                        <AccountId>14</AccountId>
-                        <AssociatedCatapultAccount>u-ertyhgfd12dcvdhnboklk</AssociatedCatapultAccount>
-                        <GlobalAccountNumber>globalAccount</GlobalAccountNumber>
-                        <CompanyName>CWI Hosting</CompanyName>
-                        <AccountType>Business</AccountType>
-                        <NenaId/>
-                        <CustomerSegment>Trial</CustomerSegment>
-                        <Tiers>
-                          <Tier>0</Tier>
-                        </Tiers>
-                        <Address>
-                          <HouseNumber>904</HouseNumber>
-                          <HouseSuffix>E</HouseSuffix>
-                          <PreDirectional/>
-                          <StreetName>Anson</StreetName>
-                          <StreetSuffix>St</StreetSuffix>
-                          <PostDirectional/>
-                          <AddressLine2/>
-                          <City>Marshalltown</City>
-                          <StateCode>IA</StateCode>
-                          <Zip>50158</Zip>
-                          <PlusFour/>
-                          <County/>
-                          <Country>United States</Country>
-                          <AddressType>Billing</AddressType>
-                        </Address>
-                        <Contact>
-                          <FirstName>Sanjay</FirstName>
-                          <LastName>Rao</LastName>
-                          <Phone>9195441234</Phone>
-                          <Email>srao@bandwidth.com</Email>
-                        </Contact>
-                        <AltSpid>X455</AltSpid>
-                        <SPID>9999</SPID>
-                        <PortCarrierType>WIRELINE</PortCarrierType>
-                      </Account>
-                    </AccountResponse>
-              schema:
-                $ref: '#/components/schemas/AccountResponseWrapper'
+  - accounts.yml#/paths
+  - porting.yml#/paths
   /accounts/{accountId}/addresses:
     get:
       tags:
@@ -7381,7 +7322,6 @@ paths:
                     		 <Note>Import to Account is received.</Note>
                     		 <Author>admin</Author>
                     		 <Status>RECEIVED</Status>
-                    	 </OrderHistory>
                     	 </OrderHistory>
                     	 <OrderHistory>
                     		 <OrderDate>2015-06-16T14:03:10.789Z</OrderDate>
@@ -21227,11 +21167,6 @@ components:
           required:
             - AlternateEndUserIdentifiers
             - Address
-    E911Order:
-      type: object
-      properties:
-        E911Order:
-          $ref: '#/components/schemas/E911OrderPayload'
     E911OrderPayload:
       type: object
       properties:

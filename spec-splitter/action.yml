@@ -19,5 +19,5 @@ runs:
       shell: bash
       run: |
         specName=${f:$(echo -n "${{ inputs.folder}}/" | wc -c)}
-        java -jar spec-splitter/target/spec-splitter-1.0-jar-with-dependencies.jar -r numbers_all.json -w numbers_external.json
-        java -jar spec-splitter/target/spec-splitter-1.0-jar-with-dependencies.jar -i -r numbers_all.json -w numbers_internal.json
+        java -jar spec-splitter/target/spec-splitter-1.0-jar-with-dependencies.jar -d -r numbers_all.json -w numbers_external.json
+        java -jar spec-splitter/target/spec-splitter-1.0-jar-with-dependencies.jar -d -i -r numbers_all.json -w numbers_internal.json

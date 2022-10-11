@@ -62,7 +62,7 @@ public class XmlParser {
 
     private Document getDocument(String xmlString) {
         try {
-            if (xmlString == null || xmlString.equals("null")) {
+            if (xmlString == null || xmlString.equals("null") || xmlString.equals("")) {
                 return null;
             }
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -70,8 +70,9 @@ public class XmlParser {
             builder = factory.newDocumentBuilder();
             return builder.parse(new InputSource(new StringReader(xmlString)));
         }catch (Exception e) {
+            System.out.println("Error while processing XML string.  Message: " + e.getMessage());
+            System.out.println("XML String: " + xmlString);
             e.printStackTrace();
-            System.out.println(xmlString);// used sout here as far as we do not need to LOG to file
             System.exit(1);
         }
         return null;

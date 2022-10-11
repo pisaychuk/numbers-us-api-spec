@@ -14,28 +14,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - uses: Bandwidth/github-actions/openapi-preprocessor@BWDB-14042-oas-preprocessor
-#        with:
-#          input_file: 'spec/numbers.json'
-#          output_file: 'numbers_all.json'
-#
-#      - uses: ./spec-splitter
+      - uses: mrmeyers99/openapi-preprocessor@main
+        with:
+          input_file: 'spec/numbers.yml'
+          output_file: 'numbers_all.json'
 
-      # to be replaced with using the spec splitter
-      - run: cp spec/numbers.yml spec/numbers_external.yml
+      - uses: ./spec-splitter
+
+      - run: |
+          yq e -P numbers_external.json > numbers_external.yml
+          yq e -P numbers_internal.json > numbers_internal.yml
 
       - name: Validate spec
-        run: yamllint -d relaxed spec/numbers_external.yml
+        run: yamllint -d relaxed numbers_external.yml
+
+      - name: Validate spec
+        run: yamllint -d relaxed numbers_internal.yml
 
       - uses: actions/upload-artifact@v3
         with:
           name: specs
-          path: spec/numbers_external.yml
+          path: numbers_external.yml
 
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: specs
-#          path: numbers_internal.json
+      - uses: actions/upload-artifact@v3
+        with:
+          name: specs
+          path: numbers_internal.yml
 
   open-update-pr:
     needs: generate-specs
@@ -48,4 +52,4 @@ jobs:
           token: ${{ secrets.NUMBERS_DEVOPS_GITHUB_TOKEN }}
           repository: Bandwidth/api-specs
           event-type: ${{ github.event.action == 'synchronize' && 'Numbers-Update' || 'Numbers-Open' }}
-          client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "${{ github.repository }}", "author": "${{ github.event.sender.login }}", "draftPr": ${{ github.event.pull_request.draft }}, "runId": "${{ github.run_id }}"}'
+          client-payload: '{"branchName": "${{ github.head_ref }}", "prNumber":"${{ github.event.number }}", "originRepo": "numbers-us-api-spec", "author": "${{ github.event.sender.login }}", "draftPr": ${{ github.event.pull_request.draft }}, "runId": "${{ github.run_id }}"}'
